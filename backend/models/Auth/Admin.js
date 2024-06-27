@@ -1,51 +1,25 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 
-const COLLECTION_NAME = "admin";
-const DOCUMENT_NAME = "Admin";
-
-// Declare the Schema of the Mongo model
-const adminSchema = new Schema({
-    lastName: {
+const adminSchema = new mongoose.Schema({
+    name: {
         type: String,
-        required: true,
-        unique: false,
-        index: true,
-    },
-    firstName: {
-        type: String,
-        required: true,
-        unique: false,
-        index: true,
+        required: true
     },
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: true
     },
     password: {
         type: String,
-        required: true,
+        required: true
     },
     role: {
         type: String,
-        default: 'Admin'
-    },
-    isEnable: {
-        type: Boolean,
-        default: false
+        default: 'admin'
     }
-}, {
-    timestamps: true, // tự động tạo createdAt và updatedAt
-    collection: COLLECTION_NAME,
 });
 
-adminSchema.pre('save', function (next) {
-    // Kiểm tra nếu không có trường role được truyền vào
-    if (!this.role) {
-        // Gán giá trị mặc định là 'Admin' cho trường role
-        this.role = 'Admin';
-    }
-    next();
-});
+const Admin = mongoose.model('Admin', adminSchema);
 
-export default model(DOCUMENT_NAME, adminSchema);
+export default Admin;

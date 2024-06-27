@@ -3,15 +3,16 @@ import express from "express";
 import dotenv from 'dotenv';
 import cors from 'cors';
 import session from 'express-session';
+import Admin from './models/Auth/Admin.js';
 dotenv.config();
 
 
 const app = express();
-
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000/',
-  credentials: true // Allow sending cookies and other credentials
+  origin: 'http://localhost:3000',
+  credentials: true // Cho phép gửi cookies và các thông tin xác thực khác
 }));
 app.use(express.static("."));
 app.use(session({
@@ -27,9 +28,9 @@ app.use((req, res, next) => {
 
 const mongoDBURL = process.env.mongoDBURL
 
+
 mongoose.connect(mongoDBURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+
 })
   .then(() => {
     console.log('Connected to MongoDB!');
@@ -42,6 +43,8 @@ app.use((req, res, next) => {
   req.currentDate = new Date();
   next();
 });
+
+
 
 
 export default app

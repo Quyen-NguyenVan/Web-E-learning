@@ -1,0 +1,13 @@
+// src/pages/HomePage.scss
+.home-page {
+    .search-container {
+        padding: 100px;
+    }
+
+    .lecture-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 112px;
+    }
+}
